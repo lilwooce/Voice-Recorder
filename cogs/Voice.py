@@ -48,11 +48,7 @@ class Voice(commands.Cog):
         if not name:
             name = str(random.randint(000000, 999999))
         with open(f'{name}.mp3', 'wb') as f:
-            video = ffmpeg.input('https://imgur.com/gallery/NakfHv4', pattern_type='glob', framerate=25).output(f'{name}.mp4').run()
-            print(video)
             f.write(wav_bytes)
-            print(f)
-            ffmpeg.concat(video, f, v=1, a=1).output(f'{name}.mp4').run()
         await ctx.channel.send(file=discord.File(f.name))
         await message.delete()
         await sMessage.delete()
