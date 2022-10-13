@@ -1,8 +1,6 @@
 import discord
 import os
-import sys
-import traceback
-import requests
+import ffmpeg
 from discord.ext import commands
 from dotenv import load_dotenv
 from discord.ext.audiorec import NativeVoiceClient  # important!
@@ -49,8 +47,10 @@ class Voice(commands.Cog):
 
         if not name:
             name = str(random.randint(000000, 999999))
-        with open(f'{name}.mp3', 'wb') as f:
-            f.write(wav_bytes)
+        with open(f'{name}a.mp3', 'wb') as f:
+            video = os.system(f"ffmpeg -f image2 -r 1/5 -i https://imgur.com/gallery/NakfHv4 -vcodec mpeg4 -y .{name}v.mp4")
+            audio = f.write(wav_bytes)
+            ffmpeg.concat(video, audio, v=1, a=1).output(f'{name}.mp4').run()
         await ctx.channel.send(file=discord.File(f.name))
         await message.delete()
         await sMessage.delete()
