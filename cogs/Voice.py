@@ -49,7 +49,7 @@ class Voice(commands.Cog):
 
         if not name:
             name = str(random.randint(000000, 999999))
-        with open(f'{name}.WMV', 'wb') as f:
+        with open(f'{name}.webm', 'wb') as f:
             f.write(wav_bytes)
         await ctx.channel.send(file=discord.File(f.name))
         await message.delete()
