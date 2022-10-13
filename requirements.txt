@@ -2,6 +2,7 @@ discord.py
 python-dotenv
 pytz
 requests
+ffmpeg
 ffmpeg-python
 PyNaCl
 pip
