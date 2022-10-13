@@ -73,3 +73,6 @@ class Voice(commands.Cog):
                     "Author not connected to a voice channel.")
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()
+
+def setup(bot):
+    bot.add_cog(Voice(bot))
