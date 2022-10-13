@@ -28,8 +28,7 @@ def get_prefix(client, message):
 
 initial_extensions = {
     "cogs.Config",
-    "cogs.Snipe",
-    "cogs.Music"
+    "cogs.Voice"
 }
 
 @bot.event
