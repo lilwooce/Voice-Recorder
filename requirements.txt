@@ -7,4 +7,4 @@ PyNaCl
 pip
 youtube-dl
 discord.py[voice]
-discord.ext.audiorec
+discord-ext-audiorec
