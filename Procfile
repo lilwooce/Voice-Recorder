@@ -1,1 +1,1 @@
-worker: python sogeking.py
+worker: python main.py
