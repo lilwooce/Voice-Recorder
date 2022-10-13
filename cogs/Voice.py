@@ -18,14 +18,14 @@ class Voice(commands.Cog):
         print(f"{self.__class__.__name__} Cog has been loaded\n----")
 
     @commands.command()
-    async def help(ctx):
+    async def help(self, ctx):
         embedVar = discord.Embed(title="here are my commands!",
                                 description="nuser **$join** to start the recording\nuser **$stop** to stop the recording", color=0x546e7a)
         await ctx.send(embed=embedVar)
 
 
     @commands.command()
-    async def join(ctx: commands.Context):
+    async def join(self, ctx: commands.Context):
         channel: discord.VoiceChannel = ctx.author.voice.channel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
@@ -33,12 +33,7 @@ class Voice(commands.Cog):
 
 
     @commands.command()
-    async def test(ctx):
-        await ctx.send('hello im alive!')
-
-
-    @commands.command()
-    async def rec(ctx, name=None):
+    async def rec(self, ctx, name=None):
         ctx.voice_client.record(lambda e: print(f"Error Recording Message. Exceptioxn: {e}"))
         embedVar = discord.Embed(title="Started the Recording!",
                                 description="use $stop to stop!", color=0x546e7a)
@@ -63,7 +58,7 @@ class Voice(commands.Cog):
         await ctx.voice_client.disconnect()
 
     @rec.before_invoke
-    async def ensure_voice(ctx):
+    async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect(cls=NativeVoiceClient)
