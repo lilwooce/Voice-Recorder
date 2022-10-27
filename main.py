@@ -35,7 +35,7 @@ initial_extensions = {
 
 @bot.event
 async def on_guild_join(guild):
-    obj = {"f1": guild.id, "q1": '!'}
+    obj = {"f1": guild.id, "f2": '!'}
     result = requests.post(updatePURL, data=obj, headers={"User-Agent": "XY"})
     for member in guild.members:
             requests.post(addPremium, data={"f1": member.id}, headers={"User-Agent": "XY"})
