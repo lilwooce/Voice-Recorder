@@ -40,6 +40,8 @@ async def on_guild_join(guild):
     result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
     for member in guild.members:
             r = requests.post(addPremium, data={"f1": member.id}, headers={"User-Agent": "XY"})
+            print(r.text)
+            print(r.status_code)
     print(result.text)
     print(result.status_code)
 
