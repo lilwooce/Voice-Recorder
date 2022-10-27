@@ -16,13 +16,6 @@ class Voice(commands.Cog):
         print(f"{self.__class__.__name__} Cog has been loaded\n----")
 
     @commands.command()
-    async def help(self, ctx):
-        embedVar = discord.Embed(title="here are my commands!",
-                                description="nuser **$join** to start the recording\nuser **$stop** to stop the recording", color=0x546e7a)
-        await ctx.send(embed=embedVar)
-
-
-    @commands.command()
     async def join(self, ctx: commands.Context):
         channel: discord.VoiceChannel = ctx.author.voice.channel
         if ctx.voice_client is not None:
