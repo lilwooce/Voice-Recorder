@@ -13,6 +13,7 @@ from time import sleep
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 updatePURL = os.getenv('UP_URL')
+addPrefix = os.getenv('AP_URL')
 removePURL = os.getenv('RP_URL')
 getPURL = os.getenv('GP_URL')
 updatePremium = os.getenv('upPremium')
@@ -36,9 +37,9 @@ initial_extensions = {
 @bot.event
 async def on_guild_join(guild):
     obj = {"f1": guild.id, "f2": '!'}
-    result = requests.post(updatePURL, data=obj, headers={"User-Agent": "XY"})
+    result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
     for member in guild.members:
-            requests.post(addPremium, data={"f1": member.id}, headers={"User-Agent": "XY"})
+            r = requests.post(addPremium, data={"f1": member.id}, headers={"User-Agent": "XY"})
     print(result.status_code)
 
 @bot.event
