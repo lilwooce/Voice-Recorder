@@ -38,7 +38,7 @@ async def on_guild_join(guild):
     obj = {"f1": guild.id, "q1": '!'}
     result = requests.post(updatePURL, data=obj, headers={"User-Agent": "XY"})
     for member in guild.members:
-            requests.post(addPremium, data={member.id}, headers={"User-Agent": "XY"})
+            requests.post(addPremium, data={"f1": member.id}, headers={"User-Agent": "XY"})
     print(result.status_code)
 
 @bot.event
