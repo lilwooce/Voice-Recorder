@@ -68,6 +68,7 @@ async def on_guild_join(guild):
         if(member.bot):
             print("this is a bot")
             continue
+        print("this is not a bot")
         premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
         premStatus = premStatus.text.replace('"', '')
         if (not exists(member.id)):
