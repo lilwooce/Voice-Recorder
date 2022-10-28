@@ -66,9 +66,12 @@ async def on_guild_join(guild):
         return
     role = get(guild.roles, name="Premium")
     for member in guild.members:
+        premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
+        premStatus = premStatus.text()
         if (not exists(member.id)):
             addUser(member.id)
-        await member.add_roles(role)
+        if ((not role in member.roles) and (premStatus == 1)):
+            await member.add_roles(role)
 
 @bot.event
 async def on_guild_remove(guild):
