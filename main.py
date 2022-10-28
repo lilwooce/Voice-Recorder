@@ -62,7 +62,7 @@ async def on_guild_join(guild):
     result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
     if(not roleCheck(guild)):
         premRole = await guild.create_role(name="Premium", colour=discord.Colour(00000000))
-        totalRoles = await guild.roles.len()
+        totalRoles = len(guild.roles)
         await premRole.edit(position=totalRoles+1)
 
     role = get(guild.roles, name="Premium")
