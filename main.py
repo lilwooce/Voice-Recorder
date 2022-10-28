@@ -58,11 +58,6 @@ def roleCheck(guild):
 
 @bot.event
 async def on_guild_join(guild):
-    botMember = guild.get_member(bot.user.id)
-    botRole = botMember.roles[0]
-    await botRole.edit(position=1)
-    print("moved bot pos")
-
     obj = {"f1": guild.id, "f2": '!'}
     result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
     if(not roleCheck(guild)):
