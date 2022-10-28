@@ -68,6 +68,8 @@ async def on_guild_join(guild):
         premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
         premStatus = premStatus.text
         print(premStatus)
+        print(premStatus=="0")
+        print(not role in member.roles)
         if (not exists(member.id)):
             addUser(member.id)
         if ((not role in member.roles) and (premStatus == "0")):
