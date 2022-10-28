@@ -40,8 +40,8 @@ initial_extensions = {
 def exists(id):
     result = requests.get(getPremium, params={"f1": "userID", "f2": id}, headers=header)
     n = result.text.replace('"', '')
-    print(n)
-    print(id)
+    print(f"got {n} from database")
+    print(f"users id is {id} as a parameter")
     if (id == n):
         return True
     else:
