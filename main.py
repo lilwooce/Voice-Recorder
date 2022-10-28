@@ -4,6 +4,7 @@ import sys
 import traceback
 import requests
 from discord.ext import commands
+from discord.utils import get
 from dotenv import load_dotenv
 from discord.ext.audiorec import NativeVoiceClient  # important!
 import random
@@ -18,10 +19,12 @@ removePURL = os.getenv('RP_URL')
 getPURL = os.getenv('GP_URL')
 updatePremium = os.getenv('upPremium')
 addPremium = os.getenv('addPremium')
+getPremium = os.getenv('getPremium')
 
 intents = discord.Intents().all()
 intents.members = True
 bot = commands.Bot(command_prefix="$", intents=intents)
+header = {"User-Agent": "XY"}
 
 def get_prefix(client, message):
     obj = {"f1": "server", "q1": message.guild.id}
@@ -34,14 +37,44 @@ initial_extensions = {
     "cogs.Voice"
 }
 
+def exists(id):
+    result = requests.get(getPremium, params={"f1": "userID", "f2": id}, headers=header)
+    n = result.text.replace('"', '')
+    if (id == n):
+        return True
+    else:
+        return False
+
+def addUser(id):
+    r = requests.post(addPremium, data={"f1": id}, headers={"User-Agent": "XY"})
+    print(r.text)
+    print(r.status_code)
+
+def roleCheck(guild):
+    if get(guild.roles, name="Premium"):
+        return True
+    else:
+        return False
+
 @bot.event
 async def on_guild_join(guild):
     obj = {"f1": guild.id, "f2": '!'}
     result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
     for member in guild.members:
-            r = requests.post(addPremium, data={"f1": member.id}, headers={"User-Agent": "XY"})
-            print(r.text)
-            print(r.status_code)
+        if (not exists(member.id)):
+            addUser(member.id)
+            if(not roleCheck(guild)):
+                guild.create_role(name="Premium", colour=discord.Colour(00000000))
+                role = get(guild.roles, name="Premium")
+                member.add_roles(role)
+            else:
+                role = get(guild.roles, name="Premium")
+                member.add_roles(role)
+            roleCheck(guild)
+            
+        else:
+            return
+            
     print(result.text)
     print(result.status_code)
 
