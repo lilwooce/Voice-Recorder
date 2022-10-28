@@ -49,8 +49,6 @@ def exists(id):
 
 def addUser(id):
     r = requests.post(addPremium, data={"f1": id}, headers={"User-Agent": "XY"})
-    print(r.text)
-    print(r.status_code)
 
 def roleCheck(guild):
     if get(guild.roles, name="Premium"):
@@ -69,9 +67,6 @@ async def on_guild_join(guild):
     for member in guild.members:
         premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
         premStatus = premStatus.text.replace('"', '')
-        print(premStatus)
-        print(premStatus=="0")
-        print(not role in member.roles)
         if (not exists(member.id)):
             addUser(member.id)
         if ((not role in member.roles) and (premStatus == "0")):
