@@ -62,11 +62,12 @@ async def on_guild_join(guild):
     result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
     if(not roleCheck(guild)):
         await guild.create_role(name="Premium", colour=discord.Colour(00000000))
-        
+
     role = get(guild.roles, name="Premium")
     for member in guild.members:
         premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
-        premStatus = premStatus.text()
+        premStatus = premStatus.text
+        print(premStatus)
         if (not exists(member.id)):
             addUser(member.id)
         if ((not role in member.roles) and (premStatus == 1)):
