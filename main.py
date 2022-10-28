@@ -65,6 +65,8 @@ async def on_guild_join(guild):
 
     role = get(guild.roles, name="Premium")
     for member in guild.members:
+        if(member.bot):
+            return
         premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
         premStatus = premStatus.text.replace('"', '')
         if (not exists(member.id)):
