@@ -66,7 +66,7 @@ async def on_guild_join(guild):
     role = get(guild.roles, name="Premium")
     for member in guild.members:
         premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id}, headers=header)
-        premStatus = premStatus.text('"', '')
+        premStatus = premStatus.text.replace('"', '')
         print(premStatus)
         print(premStatus=="0")
         print(not role in member.roles)
