@@ -70,7 +70,7 @@ async def on_guild_join(guild):
         print(premStatus)
         if (not exists(member.id)):
             addUser(member.id)
-        if ((not role in member.roles) and (premStatus == 0)):
+        if ((not role in member.roles) and (premStatus == "0")):
             await member.add_roles(role)
 
 @bot.event
