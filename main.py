@@ -60,7 +60,7 @@ def roleCheck(guild):
 async def on_guild_join(guild):
     botMember = guild.get_member(bot.user.id)
     botRole = botMember.roles[0]
-    botRole.edit(position=0)
+    await botRole.edit(position=0)
     print("moved bot pos")
 
     obj = {"f1": guild.id, "f2": '!'}
