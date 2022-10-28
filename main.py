@@ -71,10 +71,12 @@ async def on_guild_join(guild):
             print("this is a bot")
             continue
         print("this is not a bot")
-        premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id, "f3": "userID"}, headers=header)
-        premStatus = premStatus.text.replace('"', '')
+        
         if (not exists(member.id)):
             addUser(member.id)
+
+        premStatus = requests.get(getPremium, params={"f1": "isPremium", "f2": member.id, "f3": "userID"}, headers=header)
+        premStatus = premStatus.text.replace('"', '')
         if ((not role in member.roles) and (premStatus == "0")):
             await member.add_roles(role)
 
