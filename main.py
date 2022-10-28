@@ -60,23 +60,15 @@ def roleCheck(guild):
 async def on_guild_join(guild):
     obj = {"f1": guild.id, "f2": '!'}
     result = requests.post(addPrefix, data=obj, headers={"User-Agent": "XY"})
+    if(not roleCheck(guild)):
+        await guild.create_role(name="Premium", colour=discord.Colour(00000000))
+    else:
+        return
+    role = get(guild.roles, name="Premium")
     for member in guild.members:
         if (not exists(member.id)):
             addUser(member.id)
-            if(not roleCheck(guild)):
-                guild.create_role(name="Premium", colour=discord.Colour(00000000))
-                role = get(guild.roles, name="Premium")
-                member.add_roles(role)
-            else:
-                role = get(guild.roles, name="Premium")
-                member.add_roles(role)
-            roleCheck(guild)
-            
-        else:
-            return
-            
-    print(result.text)
-    print(result.status_code)
+        await member.add_roles(role)
 
 @bot.event
 async def on_guild_remove(guild):
