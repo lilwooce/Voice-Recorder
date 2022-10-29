@@ -30,8 +30,6 @@ class Voice(commands.Cog):
                                 description="use $stop to stop!", color=0x546e7a)
         message = await ctx.send(embed=embedVar)
 
-        sleep(5)
-
         if not ctx.voice_client.is_recording():
             return
         sMessage = await ctx.send(f'Stopping the Recording')
@@ -46,6 +44,19 @@ class Voice(commands.Cog):
         await message.delete()
         await sMessage.delete()
         await ctx.message.delete()
+        await ctx.voice_client.disconnect()
+
+    @commands.command()
+    async def stop(ctx: commands.Context):
+        if not ctx.voice_client.is_recording():
+            return
+        await ctx.send(f'Stopping the Recording')
+
+        wav_bytes = await ctx.voice_client.stop_record()
+
+        name = str(random.randint(000000, 999999))
+        with open(f'{name}.mp3', 'wb') as f:
+            f.write(wav_bytes)
         await ctx.voice_client.disconnect()
 
     @rec.before_invoke
