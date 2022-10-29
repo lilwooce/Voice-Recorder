@@ -30,6 +30,8 @@ class Voice(commands.Cog):
                                 description="use $stop to stop!", color=0x546e7a)
         message = await ctx.send(embed=embedVar)
 
+        sleep(99999999)
+
         if not ctx.voice_client.is_recording():
             return
         sMessage = await ctx.send(f'Stopping the Recording')
