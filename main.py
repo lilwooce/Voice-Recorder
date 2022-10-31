@@ -34,7 +34,8 @@ def get_prefix(client, message):
 
 initial_extensions = {
     "cogs.Config",
-    "cogs.Voice"
+    "cogs.Voice",
+    "cogs.Premium"
 }
 
 def exists(id):

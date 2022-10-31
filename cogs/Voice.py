@@ -22,6 +22,9 @@ class Voice(commands.Cog):
             return await ctx.voice_client.move_to(channel)
         await channel.connect(cls=NativeVoiceClient)
 
+    async def timeCheck(self):
+        return(5)
+
 
     @commands.command()
     async def rec(self, ctx, name=None):
@@ -30,7 +33,8 @@ class Voice(commands.Cog):
                                 description="use $stop to stop!", color=0x546e7a)
         message = await ctx.send(embed=embedVar)
 
-        sleep(99999999)
+        recTime = await self.timeCheck()
+        sleep(recTime)
 
         if not ctx.voice_client.is_recording():
             return
