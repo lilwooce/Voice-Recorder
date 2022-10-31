@@ -55,6 +55,27 @@ class Premium(commands.Cog, name="Premium"):
             print("Payment created successfully")
         else:
             print(payment.error) 
+        
+        for link in payment.links:
+            if link.rel == "approval_url":
+                # Convert to str to avoid Google App Engine Unicode issue
+                # https://github.com/paypal/rest-api-sdk-python/pull/58
+                approval_url = str(link.href)
+                print("Redirect for approval: %s" % (approval_url))
+        
+        payment = paypalrestsdk.Payment.find("PAY-57363176S1057143SKE2HO3A")
+
+        if payment.execute({"payer_id": "DUFRQ8GWYMJXC"}):
+            print("Payment execute successfully")
+        else:
+            print(payment.error) # Error Hash\
+        
+        # Fetch Payment
+        payment = paypalrestsdk.Payment.find("PAY-57363176S1057143SKE2HO3A")
+
+        # Get List of Payments
+        payment_history = paypalrestsdk.Payment.all({"count": 10})
+        payment_history.payments
 
     
 
